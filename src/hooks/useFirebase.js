@@ -3,6 +3,7 @@ import {
   GoogleAuthProvider,
   onAuthStateChanged,
   signInWithPopup,
+  signOut,
 } from "firebase/auth";
 import { getAuth } from "firebase/auth";
 import app from "../firebase.init";
@@ -24,12 +25,22 @@ const useFirebase = () => {
       });
   };
 
+  const handleSignOut = () => {
+    signOut(auth)
+      .then(() => {
+        // Sign-out successful.
+      })
+      .catch((error) => {
+        // An error happened.
+      });
+  };
+
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       setUser(user);
     });
   }, []);
-  return { user, signWithGoogle };
+  return { user, signWithGoogle, handleSignOut };
 };
 
 export default useFirebase;
