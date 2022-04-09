@@ -1,11 +1,19 @@
+import { Button } from "bootstrap";
 import React from "react";
 import { Link } from "react-router-dom";
-
+import useFirebase from "../../hooks/useFirebase";
+import "./Header.css";
 const Header = () => {
+  const { user } = useFirebase();
   return (
-    <div>
-      <Link to="/">Home</Link>
-      <Link to="/login">LogIn</Link>
+    <div className="header">
+      <nav>
+        <Link to="/products">Products</Link>
+        <Link to="/orders">Orders</Link>
+        <Link to="/register">Register</Link>
+        <Link to="/">Home</Link>
+        {user.uid ? <button>Sign Out</button> : <Link to="/login">LogIn</Link>}
+      </nav>
     </div>
   );
 };
